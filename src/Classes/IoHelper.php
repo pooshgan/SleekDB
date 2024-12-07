@@ -85,8 +85,14 @@ class IoHelper {
     self::checkWrite($filePath);
 
     // Wait until it's unlocked, then write.
-    if(file_put_contents($filePath, $content, LOCK_EX) === false){
-      throw new IOException("Could not write content to file. Please check permissions at: $filePath");
+    if(false === file_exists($filePath)) {
+        if(file_put_contents($filePath, $content) === false){
+          throw new IOException("Could not write content to file. Please check permissions at: $filePath");
+        }
+    } else {
+        if(file_put_contents($filePath, $content, LOCK_EX) === false){
+          throw new IOException("Could not write content to file. Please check permissions at: $filePath");
+        }
     }
   }
 
@@ -167,8 +173,14 @@ class IoHelper {
     }
 
 
-    if(file_put_contents($filePath, $content, LOCK_EX) === false){
-      throw new IOException("Could not write content to file. Please check permissions at: $filePath");
+    if(false === file_exists($filePath)) {
+        if(file_put_contents($filePath, $content) === false){
+          throw new IOException("Could not write content to file. Please check permissions at: $filePath");
+        }
+    } else {
+        if(file_put_contents($filePath, $content, LOCK_EX) === false){
+          throw new IOException("Could not write content to file. Please check permissions at: $filePath");
+        }
     }
 
 
